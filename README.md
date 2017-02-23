@@ -1,1 +1,1 @@
-"# NHLscoreboard"
+# NHLscoreboard
