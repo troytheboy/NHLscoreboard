@@ -38,6 +38,8 @@ function getGames(date) {
     //var yesterdayDate = date.setDate(date.getDate() -1);
     //console.log(date,yesterdayDate)
     var today = date.toISOString().split("T")[0];
+    var month = today
+    console.log("today: " + today)
     //var yesterday = (new Date(yesterdayDate)).toISOString().split("T")[0];
     var schedule = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+today+"&endDate="+today;
     console.log(today);
@@ -76,6 +78,7 @@ function scoreboard(date) {
 }
 
 var date = new Date;
-scoreboard(date);
+var date2 = new Date (date.setDate(date.getDate() -1));
+scoreboard(date2);
 // var yesterday = new Date(date.setDate(date.getDate() -1));
 // scoreboard(yesterday);
