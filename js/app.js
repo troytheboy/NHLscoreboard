@@ -1,7 +1,7 @@
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var $ = require('jquery')
-var url = "http://statsapi.web.nhl.com/api/v1/game/2016020891/feed/live.json";
-
+//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+//var $ = require('jquery');
+//var url = "http://statsapi.web.nhl.com/api/v1/game/2016020891/feed/live.json";
+var $ = jQuery;
 
 
 function getScore(gameId)
@@ -27,15 +27,21 @@ function getScore(gameId)
       //console.log(liveData.linescore);
       status = liveData.linescore.currentPeriodTimeRemaining + " " + liveData.linescore.currentPeriodOrdinal;
     }
+    var gameHTML = '<div class="game container-fluid"><div class="row container"><div class="col-md-6 teams"><strong>'+awayScore+'</strong> '+away+'<br><strong>'+homeScore+'</strong> '+home+'</div>';
     if (time > new Date()) {
       time = time.toISOString().split("T")[1];
       var hours = time.substring(0,2);
       hours = parseInt(hours, 10) + 7;
       time = hours + time.substring(2,5) + " EST";
-      console.log(away + " @ " + home + " " + time + "\n");
+      gameHTML += '<div class="col-md-6">'+time+'</div></div></div>';
+      //$("#scoreboard").append('<p>' + away + " @ " + home + " " + time +  + '</p>');
+      // console.log(away + " @ " + home + " " + time + "\n");
     } else {
-      console.log(away + " " + awayScore + " || " + home + " " + homeScore + " - " + status  + "\n");
+        //$("#scoreboard").append('<div class="game">' + away + " " + awayScore + " || " + home + " " + homeScore + " - " + status  + '</div>');
+        gameHTML += '<div class="col-md-6">'+status+'</div></div></div>';
+        console.log(away + " " + awayScore + " || " + home + " " + homeScore + " - " + status  + "\n");
     }
+    $("#scoreboard").append(gameHTML);
     return result;
 }
 
@@ -44,8 +50,8 @@ function getGames(date) {
     //var yesterdayDate = date.setDate(date.getDate() -1);
     //console.log(date,yesterdayDate)
     var today = date.toISOString().split("T")[0];
-    var month = today
-    console.log("\nNHL Scoreboard: " + today + '\n')
+    var month = today;
+    console.log("\nNHL Scoreboard: " + today + '\n');
     //var yesterday = (new Date(yesterdayDate)).toISOString().split("T")[0];
     var schedule = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+today+"&endDate="+today;
     //console.log(today);
@@ -71,7 +77,7 @@ function parseGames(schedule) {
   var gameIds = [];
   games.forEach(function(element) {
     gameIds.push(element.gamePk);
-  })
+  });
   return gameIds;
 }
 
@@ -81,10 +87,23 @@ function scoreboard(date) {
   games.forEach(function(element) {
     gameData.push(getScore(element));
   });
+  return gameData;
 }
 
 var date = new Date;
 var date2 = new Date (date.setDate(date.getDate() -1));
-scoreboard(date2);
+//console.log(scoreboard(date2));
+games = scoreboard(date2);
+$(document).ready(function() {
+    scoreboard(date2);
+    games.forEach(function (game) {
+        var gameData = game.gameData;
+        var away = gameData.teams.away.name;
+        var home = gameData.teams.home.name;
+        console.log(away + ' VS ' + home);
+        //$("#scoreboard").append('<p>' + away + ' VS ' + home + '</p>');
+    });
+});
+
 // var yesterday = new Date(date.setDate(date.getDate() -1));
 // scoreboard(yesterday);

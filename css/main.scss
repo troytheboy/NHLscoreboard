@@ -1,0 +1,25 @@
+$black : #2C2A29;
+$white : #FFFFFF;
+$heavySilver : #7C8897;
+$lightSilver : #D0D3D4;
+body {
+  font-family: "Berlin Sans FB", sans-serif;
+  background-color: $lightSilver;
+  div.jumbotron {
+    background-color: $black;
+    color: $lightSilver;
+  }
+  div.scoreboard {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    div.game {
+      color: $black;
+      font-size: 25px;
+      background-color: $lightSilver;
+      border: solid $heavySilver 2px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+  }
+}

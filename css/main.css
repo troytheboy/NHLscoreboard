@@ -1,0 +1,19 @@
+body {
+  font-family: "Berlin Sans FB", sans-serif;
+  background-color: #D0D3D4; }
+  body div.jumbotron {
+    background-color: #2C2A29;
+    color: #D0D3D4; }
+  body div.scoreboard {
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto; }
+    body div.scoreboard div.game {
+      color: #2C2A29;
+      font-size: 25px;
+      background-color: #D0D3D4;
+      border: solid #7C8897 2px;
+      border-radius: 5px;
+      margin-bottom: 15px; }
+
+/*# sourceMappingURL=main.css.map */
