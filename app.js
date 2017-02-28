@@ -7,6 +7,7 @@ var url = "http://statsapi.web.nhl.com/api/v1/game/2016020891/feed/live.json";
 function getScore(gameId)
 {
     theUrl = ("http://statsapi.web.nhl.com/api/v1/game/" + gameId + "/feed/live.json");
+    console.log('\n data link: ' + theUrl + '\n')
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
@@ -28,7 +29,7 @@ function getScore(gameId)
       time = hours + time.substring(2,5) + " EST";
       console.log(away + " @ " + home + " " + time + "\n");
     } else {
-      console.log(away + " " + awayScore + " || " + home + " " + homeScore + "\n");
+      console.log(away + " " + awayScore + " || " + home + " " + homeScore + " - " + gameData.status.detailedState  + "\n");
     }
     return result;
 }
