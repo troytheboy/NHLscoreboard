@@ -7,7 +7,7 @@ var url = "http://statsapi.web.nhl.com/api/v1/game/2016020891/feed/live.json";
 function getScore(gameId)
 {
     theUrl = ("http://statsapi.web.nhl.com/api/v1/game/" + gameId + "/feed/live.json");
-    console.log('\n data link: ' + theUrl + '\n')
+    //console.log('\n data link: ' + theUrl + '\n')
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
@@ -22,6 +22,11 @@ function getScore(gameId)
     var boxscore = liveData.boxscore;
     var awayScore = boxscore.teams.away.teamStats.teamSkaterStats.goals;
     var homeScore = boxscore.teams.home.teamStats.teamSkaterStats.goals;
+    var status = gameData.status.detailedState;
+    if (status != 'FINAL') {
+      //console.log(liveData.linescore);
+      status = liveData.linescore.currentPeriodTimeRemaining + " " + liveData.linescore.currentPeriodOrdinal;
+    }
     if (time > new Date()) {
       time = time.toISOString().split("T")[1];
       var hours = time.substring(0,2);
@@ -29,7 +34,7 @@ function getScore(gameId)
       time = hours + time.substring(2,5) + " EST";
       console.log(away + " @ " + home + " " + time + "\n");
     } else {
-      console.log(away + " " + awayScore + " || " + home + " " + homeScore + " - " + gameData.status.detailedState  + "\n");
+      console.log(away + " " + awayScore + " || " + home + " " + homeScore + " - " + status  + "\n");
     }
     return result;
 }
@@ -40,10 +45,10 @@ function getGames(date) {
     //console.log(date,yesterdayDate)
     var today = date.toISOString().split("T")[0];
     var month = today
-    console.log("today: " + today)
+    console.log("\nNHL Scoreboard: " + today + '\n')
     //var yesterday = (new Date(yesterdayDate)).toISOString().split("T")[0];
     var schedule = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+today+"&endDate="+today;
-    console.log(today);
+    //console.log(today);
     //var scheduleYesterday = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+yesterday+"&endDate="+yesterday;
     //console.log(scheduleYesterday);
     var gameIds = parseGames(schedule);
