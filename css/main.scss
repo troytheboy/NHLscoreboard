@@ -2,24 +2,69 @@ $black : #2C2A29;
 $white : #FFFFFF;
 $heavySilver : #7C8897;
 $lightSilver : #D0D3D4;
+$ice : #E5F6FF;
+$red : #86162C;
+$blue : #00007A;
+@font-face {
+  font-family: myFirstFont;
+  src: url(../static/fonts/NHL.ttf);
+}
 body {
-  font-family: "Berlin Sans FB", sans-serif;
-  background-color: $lightSilver;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: $white;
   div.jumbotron {
-    background-color: $black;
-    color: $lightSilver;
+    background-color: $blue;
+    color: $white;
+    font-family: myFirstFont, sans-serif;
+    letter-spacing: 1.8px;
+    img {
+      width: 100px;
+    }
   }
   div.scoreboard {
+    h1 {
+      //font-family: myFirstFont;
+      //letter-spacing: 1px;
+      color: $blue;
+      //text-shadow: -2px 0 $blue, 0 2px $blue, 2px 0 $blue, 0 -2px $blue;
+    }
     max-width: 750px;
     margin-left: auto;
     margin-right: auto;
     div.game {
+      padding: 15px;
       color: $black;
       font-size: 25px;
-      background-color: $lightSilver;
-      border: solid $heavySilver 2px;
+      background-color: $ice;
+      border: solid $red 4px;
       border-radius: 5px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      div.teams {
+        div.team {
+          padding: 5px;
+          margin-bottom: 4px;
+          img.logo {
+            //max-width: 30px;
+            max-width: 45px;
+            max-height: 45px;
+            margin-right: 10px;
+            //margin-top: 10px;
+          }
+          strong {
+            font-weight: 100;
+            font-family: Impact, sans-serif;
+          }
+        }
+      }
+      div.status {
+        font-family: Impact, sans-serif;
+        //display: -webkit-flex;
+        //display: flex;
+        //-webkit-justify-content: center;
+        //justify-content: center;
+        text-align: right;
+        margin-top: 1.5em;
+      }
     }
   }
 }

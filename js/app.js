@@ -18,27 +18,29 @@ function getScore(gameId)
     var dateTime = gameData.datetime.dateTime;
     var time = new Date(dateTime);
     var away = gameData.teams.away.name;
+    var awayAbrv = gameData.teams.away.abbreviation;
     var home = gameData.teams.home.name;
+    var homeAbrv = gameData.teams.home.abbreviation;
     var boxscore = liveData.boxscore;
     var awayScore = boxscore.teams.away.teamStats.teamSkaterStats.goals;
     var homeScore = boxscore.teams.home.teamStats.teamSkaterStats.goals;
     var status = gameData.status.detailedState;
-    if (status != 'FINAL') {
+    if (status != 'Final') {
       //console.log(liveData.linescore);
       status = liveData.linescore.currentPeriodTimeRemaining + " " + liveData.linescore.currentPeriodOrdinal;
     }
-    var gameHTML = '<div class="game container-fluid"><div class="row container"><div class="col-md-6 teams"><strong>'+awayScore+'</strong> '+away+'<br><strong>'+homeScore+'</strong> '+home+'</div>';
+    var gameHTML = '<div class="game container-fluid"><div class="row container"><div class="col-md-4 col-sm-4 teams"><div class="team"><img class="logo" src="static/img/logos/'+awayAbrv+'.png" >'+away+' <strong>'+awayScore+'</strong></div><div class="team"><img class="logo" src="static/img/logos/'+homeAbrv+'.png" >'+home+' <strong>'+homeScore+'</strong></div></div>';
     if (time > new Date()) {
       time = time.toISOString().split("T")[1];
       var hours = time.substring(0,2);
       hours = parseInt(hours, 10) + 7;
       time = hours + time.substring(2,5) + " EST";
-      gameHTML += '<div class="col-md-6">'+time+'</div></div></div>';
+      gameHTML += '<div class="col-md-3 col-sm-3 status">'+time+'</div></div></div>';
       //$("#scoreboard").append('<p>' + away + " @ " + home + " " + time +  + '</p>');
       // console.log(away + " @ " + home + " " + time + "\n");
     } else {
         //$("#scoreboard").append('<div class="game">' + away + " " + awayScore + " || " + home + " " + homeScore + " - " + status  + '</div>');
-        gameHTML += '<div class="col-md-6">'+status+'</div></div></div>';
+        gameHTML += '<div class="col-md-3 col-sm-3 status">'+status+'</div></div></div>';
         console.log(away + " " + awayScore + " || " + home + " " + homeScore + " - " + status  + "\n");
     }
     $("#scoreboard").append(gameHTML);
